@@ -1,83 +1,14 @@
 ﻿@model IEnumerable<LanchesMac.Models.Snack>
 
-@{
-    ViewData["Title"] = "List";
-}
+<div>
+    <h2>Todos os lanches</h2>
+</div>
 
-<h1>List</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShortDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LongDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageThumbUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsSnackFavorite)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InStock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShortDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LongDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageThumbUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSnackFavorite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InStock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@foreach (var snack in Model)
+{
+    <div>
+        <h4>@snack.Name</h4>
+        <p><img src="@snack.ImageUrl" /></p>
+        <p>Preço : @snack.Price.ToString("c")</p>
+    </div>
 }
-    </tbody>
-</table>
