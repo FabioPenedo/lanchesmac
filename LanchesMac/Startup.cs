@@ -1,4 +1,6 @@
 ﻿using LanchesMac.Context;
+using LanchesMac.Repositories;
+using LanchesMac.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace LanchesMac;
@@ -17,6 +19,9 @@ public class Startup
         string stringDeConexao = Configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<AppDbContext>(options => 
         options.UseMySql(stringDeConexao, ServerVersion.AutoDetect(stringDeConexao)));
+
+        services.AddTransient<ISnackRepository, SnackRepository>();
+        services.AddTransient<ICategoryRepository, CategoryRepository>();
 
         services.AddControllersWithViews();
     }
