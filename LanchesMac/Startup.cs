@@ -16,14 +16,19 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        string stringDeConexao = Configuration.GetConnectionString("DefaultConnection");
+        string stringDeConexao = Configuration.GetConnectionString("Mysql");
         services.AddDbContext<AppDbContext>(options => 
         options.UseMySql(stringDeConexao, ServerVersion.AutoDetect(stringDeConexao)));
 
         services.AddTransient<ISnackRepository, SnackRepository>();
         services.AddTransient<ICategoryRepository, CategoryRepository>();
 
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         services.AddControllersWithViews();
+
+        services.AddMemoryCache();
+        services.AddSession();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +48,7 @@ public class Startup
         app.UseStaticFiles();
 
         app.UseRouting();
+        app.UseSession();
 
         app.UseAuthorization();
 

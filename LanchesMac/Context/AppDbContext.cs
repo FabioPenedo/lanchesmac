@@ -11,5 +11,6 @@ namespace LanchesMac.Context
 
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Snack> Snacks { get; set; } = null!;
+        public DbSet<CartPurchaseItem> CartPurchaseItens { get; set; } = null!;
     }
 }
