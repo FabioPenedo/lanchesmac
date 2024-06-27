@@ -1,4 +1,5 @@
 ﻿using LanchesMac.Context;
+using Microsoft.EntityFrameworkCore;
 using System.Runtime.Intrinsics.X86;
 
 namespace LanchesMac.Models
@@ -14,7 +15,6 @@ namespace LanchesMac.Models
 
         public string CartPurchaseId { get; set; } = string.Empty;
         public List<CartPurchaseItem> Items { get; set; } = new List<CartPurchaseItem>();
-
         public static CartPurchase GetCart(IServiceProvider services)
         {
             //define uma sessão
@@ -56,6 +56,7 @@ namespace LanchesMac.Models
             };
         }
 
+
         public void AddToCart(Snack snack)
         {
             var cartPurchaseItem = _context.CartPurchaseItens.SingleOrDefault(
@@ -78,7 +79,6 @@ namespace LanchesMac.Models
             }
             _context.SaveChanges();
         }
-
         public void RemoveFromCart(Snack snack)
         {
             var cartPurchaseItem = _context.CartPurchaseItens.SingleOrDefault(
@@ -99,6 +99,29 @@ namespace LanchesMac.Models
 
             }
             _context.SaveChanges();
+        }
+        public List<CartPurchaseItem> GetCartPurchaseItens()
+        {
+            return Items ?? 
+                (Items =
+                _context.CartPurchaseItens
+                .Where(c => c.CartPurchaseId == CartPurchaseId)
+                .Include(s => s.Snack)
+                .ToList());
+        }
+        public void CleanCart()
+        {
+            var cartItens = _context.CartPurchaseItens
+                            .Where(c => c.CartPurchaseId == CartPurchaseId);  
+            _context.CartPurchaseItens.RemoveRange(cartItens);
+            _context.SaveChanges();
+        }
+        public decimal GetCartTotalPurchase()
+        {
+            var total = _context.CartPurchaseItens
+                        .Where(c => c.CartPurchaseId == CartPurchaseId)
+                        .Select(c => c.Snack.Price * c.Amount).Sum();
+            return total;
         }
     }
 }
