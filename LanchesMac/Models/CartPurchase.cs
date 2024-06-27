@@ -40,7 +40,7 @@ namespace LanchesMac.Models
 
 
             //obtem um serviço do tipo do nosso contexto
-            var context = services.GetService<AppDbContext>() ?? 
+            var context = services.GetService<AppDbContext>() ??
                 throw new InvalidOperationException("The AppDbContext service is not registered.");
 
 
@@ -59,7 +59,7 @@ namespace LanchesMac.Models
         public void AddToCart(Snack snack)
         {
             var cartPurchaseItem = _context.CartPurchaseItens.SingleOrDefault(
-                x => x.Snack.Id == snack.Id && 
+                x => x.Snack.Id == snack.Id &&
                 x.CartPurchaseId == CartPurchaseId);
 
             if (cartPurchaseItem == null)
@@ -75,6 +75,28 @@ namespace LanchesMac.Models
             else
             {
                 cartPurchaseItem.Amount++;
+            }
+            _context.SaveChanges();
+        }
+
+        public void RemoveFromCart(Snack snack)
+        {
+            var cartPurchaseItem = _context.CartPurchaseItens.SingleOrDefault(
+                x => x.Snack.Id == snack.Id &&
+                x.CartPurchaseId == CartPurchaseId);
+
+            if (cartPurchaseItem != null)
+            {
+                if (cartPurchaseItem.Amount > 1)
+                {
+                    cartPurchaseItem.Amount--;
+
+                }
+                else
+                {
+                    _context.CartPurchaseItens.Remove(cartPurchaseItem);
+                }
+
             }
             _context.SaveChanges();
         }
