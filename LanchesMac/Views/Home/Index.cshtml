@@ -1,3 +1,19 @@
-﻿<h1>Ola mundo</h1>
+﻿@model HomeViewModel
 
-@* <partial name="_Carousel" /> *@
+<partial name="_Carousel" />
+
+<h2>Os preferidos da semana</h2>
+
+@if (Model.FavoriteSnacks != null)
+{
+    <div class="row">
+        @foreach (var snack in Model.FavoriteSnacks)
+        {
+            <partial name="_SnacksSummary" for="@snack" />
+        }
+    </div>
+}
+else
+{
+    <div>Não tem lanches favoritos!</div>
+}

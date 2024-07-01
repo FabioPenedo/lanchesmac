@@ -1,0 +1,81 @@
+﻿@model CartPurchaseViewModel
+
+<div class="Container">
+    <div class="row">
+        <div class="d-flex align-items-center">
+            <img src="~/images/Full-Cart-icon.png" width="30" height="35" class="me-3" />
+            <h4>Carrinho de compras: </h4>
+        </div>
+        <table class="table table-bordeared table-striped">
+            <thead>
+                <tr>
+                    <th>Quantidade</th>
+                    <th>Lanche</th>
+                    <th class="text-right">Preço</th>
+                    <th class="text-right">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartPurchase.Items)
+                {
+                <tr>
+                    <td class="text-center">@item.Amount</td>
+                    <td class="text-left">@item.Snack.Name</td>
+                    <td class="text-right">@item.Snack.Price.ToString("c")</td>
+                    <td class="text-right">
+                        @((item.Amount * item.Snack.Price).ToString("c"))
+                    </td>
+                    <td class="text-center">
+                        <a asp-controller="CartPurchase" asp-action="RemoveItemToCart"
+                           asp-route-snackid="@item.Snack.Id">
+                            <img src="~/images/delete.png" width="10px" height="10px" />
+                        </a>
+                    </td>
+                </tr>
+                }
+                @if (Model.CartPurchase?.Items != null)
+                {
+                    foreach (var item in Model.CartPurchase.Items)
+                    {
+                        <tr>
+                            <td class="text-center">@item.Amount</td>
+                            <td class="text-left">@item.Snack.Name</td>
+                            <td class="text-right">@item.Snack.Price.ToString("c")</td>
+                            <td class="text-right">
+                                @((item.Amount * item.Snack.Price).ToString("c"))
+                            </td>
+                            <td class="text-center">
+                                <a asp-controller="CartPurchase" asp-action="RemoveItemToCart"
+                                   asp-route-snackid="@item.Snack.Id">
+                                    <img src="~/images/delete.png" width="10px" height="10px" />
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">O carrinho está vazio.</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Total:</td>
+                    <td class="text-right">
+                        @Model.CartPurchaseTotal.ToString("c")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="text-right">
+            <div class="btn-group">
+                <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Encerrar Pedido</a>
+                &nbsp;&nbsp;&nbsp;
+                <a class="btn btn-primary" asp-controller="Snack" asp-action="List">Continuar Comprando</a>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
