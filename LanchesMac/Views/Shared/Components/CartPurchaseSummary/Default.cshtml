@@ -1,0 +1,14 @@
+﻿@model CartPurchaseViewModel
+
+@if(Model.CartPurchase != null)
+{
+    if(Model.CartPurchase.Items.Count > 0)
+    {
+        <a asp-controller="CartPurchase" asp-action="Index">
+            <span><img src="~/images/cart-5-16.ico" /></span>
+            <span class="text-light text-decoration-none">
+                @Model.CartPurchase.Items.Count
+            </span>
+        </a>
+    }
+}
