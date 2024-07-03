@@ -15,12 +15,7 @@ namespace LanchesMac.Components
 
         public IViewComponentResult Invoke()
         {
-            //var itens = _cartPurchase.GetCartPurchaseItens();
-            var itens = new List<CartPurchaseItem>()
-            {
-                new CartPurchaseItem(),
-                new CartPurchaseItem()
-            };
+            var itens = _cartPurchase.GetCartPurchaseItens();
             _cartPurchase.Items = itens;
 
             var cartPurchaseVM = new CartPurchaseViewModel
