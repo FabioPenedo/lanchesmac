@@ -57,6 +57,12 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(
+                name: "filterCategory",
+                pattern: "Snack/{action}/{category?}",
+                defaults: new { controller = "Snack", Action = "List" }
+                );
+
+            endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
         });
