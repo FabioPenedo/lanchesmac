@@ -16,26 +16,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.CartPurchase.Items)
+                @if (Model.CartPurchase != null)
                 {
-                <tr>
-                    <td class="text-center">@item.Amount</td>
-                    <td class="text-left">@item.Snack.Name</td>
-                    <td class="text-right">@item.Snack.Price.ToString("c")</td>
-                    <td class="text-right">
-                        @((item.Amount * item.Snack.Price).ToString("c"))
-                    </td>
-                    <td class="text-center">
-                        <a asp-controller="CartPurchase" asp-action="RemoveItemToCart"
-                           asp-route-snackid="@item.Snack.Id">
-                            <img src="~/images/delete.png" width="10px" height="10px" />
-                        </a>
-                    </td>
-                </tr>
-                }
-                @if (Model.CartPurchase?.Items != null)
-                {
-                    foreach (var item in Model.CartPurchase.Items)
+                    @foreach (var item in Model.CartPurchase.Items)
                     {
                         <tr>
                             <td class="text-center">@item.Amount</td>
@@ -46,8 +29,8 @@
                             </td>
                             <td class="text-center">
                                 <a asp-controller="CartPurchase" asp-action="RemoveItemToCart"
-                                   asp-route-snackid="@item.Snack.Id">
-                                    <img src="~/images/delete.png" width="10px" height="10px" />
+                                   asp-route-snackId="@item.Snack.Id">
+                                    <img src="~/images/delete.png" width="20px" height="20px" />
                                 </a>
                             </td>
                         </tr>
