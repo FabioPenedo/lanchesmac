@@ -14,7 +14,7 @@ namespace LanchesMac.Models
         }
 
         public string CartPurchaseId { get; set; } = string.Empty;
-        public List<CartPurchaseItem> Items { get; set; } = new List<CartPurchaseItem>();
+        public List<CartPurchaseItem>? Items { get; set; }
         public static CartPurchase GetCart(IServiceProvider services)
         {
             //define uma sessão
