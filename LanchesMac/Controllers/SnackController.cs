@@ -19,7 +19,7 @@ namespace LanchesMac.Controllers
             IEnumerable<Snack> snacks;
             string currentCategory = string.Empty;
 
-            if(string.IsNullOrEmpty(category))
+            if (string.IsNullOrEmpty(category))
             {
                 snacks = _snackRepository.Snacks.OrderBy(l => l.Id);
                 currentCategory = "Todos os lanches";
@@ -42,10 +42,35 @@ namespace LanchesMac.Controllers
             return View(snackListViewModel);
         }
 
-        public IActionResult Details(int snackId) 
-        { 
+        public IActionResult Details(int snackId)
+        {
             var snack = _snackRepository.Snacks.FirstOrDefault(l => l.Id == snackId);
             return View(snack);
+        }
+
+        public ViewResult Search(string searchString)
+        {
+            IEnumerable<Snack> snacks;
+            string currentCategory = string.Empty;
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                snacks = _snackRepository.Snacks.OrderBy(p => p.Id);
+                currentCategory = "Todos os lanches";
+            }
+            else
+            {
+                snacks = _snackRepository.Snacks
+                         .Where(p => p.Name.ToLower().Contains(searchString.ToLower()));
+
+                currentCategory = snacks.Any() ? "Lanches" : "Nenhum lanche foi encontrado";
+            }
+
+            return View("~/Views/Snack/List.cshtml", new SnackListViewModel
+            {
+                Snacks = snacks,
+                CurrentCategory = currentCategory
+            });
         }
     }
 }
