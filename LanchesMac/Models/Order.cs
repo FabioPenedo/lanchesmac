@@ -10,12 +10,14 @@ namespace LanchesMac.Models
 
         [Required(ErrorMessage = "Informe o nome")]
         [StringLength(50)]
+        [Display(Name = "Nome")]
         public string Name { get; set; } = string.Empty;
 
 
 
         [Required(ErrorMessage = "Informe o sobrenome")]
         [StringLength(50)]
+        [Display(Name = "Sobrenome")]
         public string Surname { get; set; } = string.Empty;
 
 
@@ -41,11 +43,13 @@ namespace LanchesMac.Models
 
         
         [StringLength(10)]
+        [Display(Name = "Estado")]
         public string State { get; set; } = string.Empty;
 
 
 
         [StringLength(50)]
+        [Display(Name = "Cidade")]
         public string City { get; set; } = string.Empty;
 
 
@@ -53,6 +57,7 @@ namespace LanchesMac.Models
         [Required(ErrorMessage = "Informe o seu telefone")]
         [StringLength(25)]
         [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Telefone")]
         public string Telephone { get; set; } = string.Empty;
 
 
