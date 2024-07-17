@@ -19,7 +19,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         string stringDeConexao = Configuration.GetConnectionString("Mysql");
-        services.AddDbContext<AppDbContext>(options => 
+        services.AddDbContext<AppDbContext>(options =>
         options.UseMySql(stringDeConexao, ServerVersion.AutoDetect(stringDeConexao)));
 
         services.AddIdentity<IdentityUser, IdentityRole>()
@@ -64,6 +64,11 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
+
             endpoints.MapControllerRoute(
                 name: "filterCategory",
                 pattern: "Snack/{action}/{category?}",
