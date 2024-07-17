@@ -1,6 +1,7 @@
 ﻿using LanchesMac.Models;
 using LanchesMac.Repositories.Interfaces;
 using LanchesMac.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesMac.Controllers
@@ -30,6 +31,7 @@ namespace LanchesMac.Controllers
             return View(cartPurchaseVM);
         }
 
+        [Authorize]
         public IActionResult AddItemToCart(int snackId)
         {
             var selectedSnack = _snackRepository.Snacks.FirstOrDefault(p => p.Id == snackId);
@@ -40,6 +42,7 @@ namespace LanchesMac.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult RemoveItemToCart(int snackId)
         {
             var selectedSnack = _snackRepository.Snacks.FirstOrDefault(p => p.Id == snackId);
