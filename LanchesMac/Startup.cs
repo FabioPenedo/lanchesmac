@@ -1,4 +1,5 @@
-﻿using LanchesMac.Context;
+﻿using LanchesMac.Areas.Admin.Services;
+using LanchesMac.Context;
 using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
@@ -20,7 +21,7 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        string stringDeConexao = Configuration.GetConnectionString("Mysql");
+        string stringDeConexao = Configuration.GetConnectionString("Mysql")!;
         services.AddDbContext<AppDbContext>(options =>
         options.UseMySql(stringDeConexao, ServerVersion.AutoDetect(stringDeConexao)));
 
@@ -33,6 +34,8 @@ public class Startup
         services.AddTransient<ICategoryRepository, CategoryRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
         services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+        services.AddScoped<ServicesSalesReport>();
+
 
         services.AddAuthorization(options =>
         {

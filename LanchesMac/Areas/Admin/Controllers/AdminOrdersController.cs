@@ -27,7 +27,7 @@ namespace LanchesMac.Areas.Admin.Controllers
         public IActionResult OrderSnacks(int? id)
         {
             var order = _context.Orders
-                        .Include(pd => pd.OrderItems!)
+                        .Include(pd => pd.OrderItems)
                         .ThenInclude(l => l.Snack)
                         .FirstOrDefault(p => p.Id == id);
 
@@ -40,7 +40,7 @@ namespace LanchesMac.Areas.Admin.Controllers
             OrderSnackViewModel orderSnacks = new OrderSnackViewModel()
             {
                 Order = order,
-                DetailOrder = order.OrderItems!
+                DetailOrder = order.OrderItems
             };
             return View(orderSnacks);
         }

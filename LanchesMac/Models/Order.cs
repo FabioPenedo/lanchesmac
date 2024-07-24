@@ -98,6 +98,6 @@ namespace LanchesMac.Models
 
 
 
-        public List<DetailOrder>? OrderItems { get; set; }
+        public List<DetailOrder> OrderItems { get; set; } = new List<DetailOrder> { };
     }
 }
