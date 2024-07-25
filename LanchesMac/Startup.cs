@@ -30,6 +30,8 @@ public class Startup
             .AddDefaultTokenProviders();
 
 
+        services.Configure<ConfigurationImages>(Configuration.GetSection("ConfigurationPastaImagens"));
+
         services.AddTransient<ISnackRepository, SnackRepository>();
         services.AddTransient<ICategoryRepository, CategoryRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
