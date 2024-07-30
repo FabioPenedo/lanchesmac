@@ -16,8 +16,8 @@ namespace LanchesMac.Models
 
 
 
-        public virtual Snack? Snack { get; set; }
-        public virtual Order? Order { get; set; }
+        public virtual Snack Snack { get; set; } = null!;
+        public virtual Order Order { get; set; } = null!;
 
 
     }
