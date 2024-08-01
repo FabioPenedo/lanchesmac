@@ -1,5 +1,6 @@
 ﻿using LanchesMac.Context;
 using LanchesMac.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LanchesMac.Areas.Admin.Services
 {
@@ -12,32 +13,31 @@ namespace LanchesMac.Areas.Admin.Services
             _context = context;
         }
 
-        public List<GraphicSnack> GetSalesSnack(int days = 360)
+        public async Task<List<GraphicSnack>> GetSalesSnack(int days = 360)
         {
             var data = DateTime.Now.AddDays(-days);
 
-            var snacks = (from pd in _context.DetailsOrder
-                          join l in _context.Snacks on pd.SnackId equals l.Id
-                          where pd.Order.OrderDispatched >= data
-                          group pd by new { pd.SnackId, l.Name, pd.Amount }
-                          into g
-                          select new
-                          {
-                              SnackName = g.Key.Name,
-                              SnacksAmount = g.Sum(q => q.Amount),
-                              SnacksTotalValue = g.Sum(a => a.Price * a.Amount)
-                          });
+            var lanches = await _context.DetailsOrder
+                .Where(pd => pd.Order.OrderDispatched >= data)
+                .GroupBy(pd => new { pd.SnackId, pd.Snack.Name, pd.Amount })
+                .Select(g => new
+                {
+                    SnackName = g.Key.Name,
+                    SnacksAmount = g.Sum(q => q.Amount),
+                    SnacksTotalValue = g.Sum(a => a.Price * a.Amount)
+                })
+                .ToListAsync();
 
-            var lista = new List<GraphicSnack>();
-            foreach (var item in snacks)
+
+            var lista = lanches.Select(item => new GraphicSnack
             {
-                var lanche = new GraphicSnack();
-                lanche.SnackName = item.SnackName;
-                lanche.SnacksAmount = item.SnacksAmount;
-                lanche.SnacksTotalValue = item.SnacksTotalValue;
-                lista.Add(lanche);
-            }
+                SnackName = item.SnackName,
+                SnacksAmount = item.SnacksAmount,
+                SnacksTotalValue = item.SnacksTotalValue
+            }).ToList();
+
             return lista;
+
         }
     }
 }

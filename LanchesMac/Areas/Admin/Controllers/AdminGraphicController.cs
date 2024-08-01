@@ -1,8 +1,11 @@
 ﻿using LanchesMac.Areas.Admin.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesMac.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminGraphicController : Controller
     {
         private readonly ServicesSalesChart _salesChart;
