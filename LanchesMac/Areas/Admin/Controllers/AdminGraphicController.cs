@@ -21,16 +21,16 @@ namespace LanchesMac.Areas.Admin.Controllers
             return Json(snacksTotalSales);
         }
 
-        public IActionResult Index(int dias)
+        public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult MonthlySales(int dias)
+        public IActionResult MonthlySales()
         {
             return View();
         }
-        public IActionResult WeeklySales(int dias)
+        public IActionResult WeeklySales()
         {
             return View();
         }

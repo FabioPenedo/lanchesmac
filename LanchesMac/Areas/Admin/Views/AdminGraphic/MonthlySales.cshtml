@@ -19,7 +19,7 @@
     function CarregaDados() {
         $.ajax({
             url: '@Url.Action("SalesSnacks", "AdminGraphic")',
-            data: { dias: 360 },
+            data: { dias: 30 },
             dataType: "json",
             type: "GET",
             error: function (xhr, status, error) {
@@ -47,7 +47,7 @@
         });
         var data = google.visualization.arrayToDataTable(dataArray);
         var options = {
-            title: 'Lanches - Vendas nos últimos 360 dias',
+            title: 'Lanches - Vendas nos últimos 30 dias',
             chartArea: {
                 width: '65%'
             },
@@ -60,7 +60,7 @@
                 title: 'Lanches'
             }
         };
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
 </script>
