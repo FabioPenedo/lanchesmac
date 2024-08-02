@@ -15,9 +15,9 @@ namespace LanchesMac.Areas.Admin.Controllers
             _salesChart = salesChart ?? throw new ArgumentNullException(nameof(salesChart));
         }
 
-        public JsonResult SalesSnacks(int dias)
+        public async Task<JsonResult> SalesSnacks(int dias)
         {
-            var snacksTotalSales = _salesChart.GetSalesSnack(dias);
+            var snacksTotalSales = await _salesChart.GetSalesSnack(dias);
             return Json(snacksTotalSales);
         }
 
