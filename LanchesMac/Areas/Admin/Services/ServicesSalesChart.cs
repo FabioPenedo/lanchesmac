@@ -19,7 +19,7 @@ namespace LanchesMac.Areas.Admin.Services
 
             var lanches = await _context.DetailsOrder
                 .Where(pd => pd.Order.OrderDispatched >= data)
-                .GroupBy(pd => new { pd.SnackId, pd.Snack.Name, pd.Amount })
+                .GroupBy(pd => new { pd.SnackId, pd.Snack.Name })
                 .Select(g => new
                 {
                     SnackName = g.Key.Name,
